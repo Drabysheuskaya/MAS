@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" th:href="@{/static/css/file.css}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+          integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn"
+          crossorigin="anonymous">
+    <title>ByPol</title>
+    <style>
+        body {
+            background-color: #f0f0f0;
+        }
+        .disabled-link {
+            color: gray;
+            pointer-events: none;
+            text-decoration: none;
+        }
+
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a th:href="@{/}">
+            <span class="navbar-brand mb-0 h1">ByPol</span>
+        </a>
+        <button class="btn btn-light my-2 my-sm-0" type="button"
+                onclick="window.location.href = '/login'">
+            Log in
+        </button>
+    </div>
+</nav>
+<div class="container mt-4">
+    <h1 style="text-align: center">Authorization</h1>
+    <hr>
+    <div th:if="${msg}">
+        <div class="alert alert-info" role="alert">
+            <span th:text="${msg}"></span>
+        </div>
+    </div>
+    <form th:action="@{/login}" method="post">
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" th:classappend="${error} ? 'is-invalid'" id="email" name="username">
+            <div class="invalid-feedback" th:if="${error}">
+                <span th:text="${error}"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" th:classappend="${error} ? 'is-invalid'" id="password" name="password">
+            <div class="invalid-feedback" th:if="${error}">
+                <span th:text="${error}"></span>
+            </div>
+        </div>
+        <button type="submit" style="width: 100%" class="btn btn-dark">Submit</button>
+    </form>
+    <hr>
+    <h2>Don't have an account ByPol? <a th:href="@{/register}" class="disabled-link">Register!</a></h2>
+
+
+</div>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"
+        integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
+        crossorigin="anonymous"></script>
+</body>
+</html>

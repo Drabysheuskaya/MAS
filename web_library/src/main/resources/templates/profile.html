@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" th:href="@{/static/css/file.css}">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+        integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn"
+        crossorigin="anonymous">
+
+  <title>ByPol</title>
+
+  <style>
+    body {
+      background-color: #f0f0f0;
+    }
+  </style>
+
+</head>
+<body>
+<nav class="navbar navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a th:href="@{/}">
+      <span class="navbar-brand mb-0 h1">ByPol</span>
+    </a>
+  </div>
+</nav>
+<div class="container mt-4">
+  <h1 style="text-align: center">Personal profile</h1>
+  <hr>
+  <br>
+  <div style="text-align: center">
+    <br>
+    <br>
+    <h2 th:text="${user.name}">User Name</h2>
+    <br>
+    Email: <b th:text="${user.email}">Email</b>
+    <br>
+    Name: <b th:text="${user.name}">First Name</b>
+    <br>
+    Surname: <b th:text="${user.surname.orElse('N/A')}">Last Name</b>
+    <br>
+    Telephone number: <b th:text="${user.telephoneNumber}">Telephone Number</b>
+    <br>
+    Date of birth: <b th:text="${user.dateOfBirth}">Date of Birth</b>
+    <br>
+    Date of registration: <b th:text="${user.timeOfRegistration}">Date of Registration</b>
+    <br>
+    <br>
+    <a class="btn btn-dark mb-3" style="text-align: center; width: 100%" th:href="@{/profile/offers}">
+      My offers
+    </a>
+    <a class="btn btn-dark mb-3 disabled-link" style="text-align: center; width: 100%">
+      Favourite Offers
+    </a>
+    <form>
+      <button type="button" style="text-align: center; width: 100%" class="btn btn-danger mb-2" disabled>
+        Logout
+      </button>
+    </form>
+
+    <style>
+      .disabled-link {
+        pointer-events: none;
+        color: #6c757d;
+        background-color: #e9ecef;
+        border-color: #e9ecef;
+      }
+    </style>
+  </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"
+        integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
+        crossorigin="anonymous"></script>
+</body>
+</html>

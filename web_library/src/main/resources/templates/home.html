@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" th:href="@{/static/css/file.css}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+          integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn"
+          crossorigin="anonymous">
+
+    <style>
+        body {
+            background-color: #f0f0f0;
+        }
+        .card {
+            width: 15rem;
+            height: 25rem;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card img {
+            height: 16rem;
+            width: 100%;
+            object-fit: contain;
+        }
+
+        .card-body {
+            flex-grow: 1;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .card-title, .card-text {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .btn:disabled {
+            background-color: #d3d3d3;
+            color: #666;
+            cursor: not-allowed;
+        }
+
+    </style>
+
+    <title>ByPol</title>
+</head>
+<body>
+<nav class="navbar navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a th:href="@{/}">
+            <span class="navbar-brand mb-0 h1">ByPol</span>
+        </a>
+        <div class="btn-group">
+            <button class="btn btn-light my-2 my-sm-0" type="button" onclick="window.location.href = '/login'">
+                Sign In
+            </button>
+            <button class="btn btn-light my-2 my-sm-0" type="button" onclick="window.location.href = '/register'" disabled>
+                Register
+            </button>
+
+            <button class="btn btn-light my-2 my-sm-0" type="button" onclick="window.location.href = '/profile'">
+                My profile
+            </button>
+        </div>
+    </div>
+</nav>
+<div class="container mt-4">
+    <h1 style="text-align: center">Search offers</h1>
+    <hr>
+    <form method="get" th:action="@{/}">
+        <div class="form-row">
+            <div class="form-group col-md-2">
+                <label for="searchCategory">Category</label>
+                <select id="searchCategory" class="form-control" name="searchCategory">
+                    <option value="">Category not chosen</option>
+                    <option th:each="category : ${categories}" th:value="${category}" th:text="${category}"></option>
+                </select>
+            </div>
+
+            <div class="form-group col-md-10">
+                <label for="searchWord">Search offers</label>
+                <input type="text" name="searchWord" th:value="${searchWord}" class="form-control" id="searchWord">
+            </div>
+            <button style="width: 100%" type="submit" class="btn btn-dark">Search</button>
+        </div>
+    </form>
+    <hr>
+    <div class="card-columns">
+        <div th:if="${#lists.isEmpty(books)}">
+            <h1 style="text-align: center">Not found</h1>
+        </div>
+        <div th:each="book : ${books}">
+                <div class="card text-white bg-dark my-3 product">
+                    <img th:src="'data:image/jpeg;base64,' + ${book.images[0].base64Image}" class="card-img-top" alt="Product Image">
+                    <div class="card-body">
+                        <h5 class="card-title" th:text="${book.name}">Book Title</h5>
+                        <p class="card-text" th:text="${book.offer.price}">Book Price</p>
+                    </div>
+                    <div class="card-footer">
+                        <span th:each="category : ${book.categories}" th:text="${category.name} + ' '">Book Category</span>
+                    </div>
+
+
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"
+        integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
+        crossorigin="anonymous"></script>
+</body>
+</html>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" th:href="@{/static/css/file.css}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+          integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn"
+          crossorigin="anonymous">
+    <title>ByPol</title>
+
+    <style>
+        body {
+            background-color: #f0f0f0;
+        }
+
+        .card img {
+            height: 16rem;
+            width: 100%;
+            object-fit: contain;
+        }
+
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a th:href="@{/}">
+            <span class="navbar-brand mb-0 h1">ByPol</span>
+        </a>
+    </div>
+</nav>
+<div class="container mt-4">
+    <h1 style="text-align: center">Update Offer</h1>
+    <hr>
+    <div class="collapse show mb-3" id="collapseExample">
+        <form th:action="@{/product/update}" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="bookId" th:value="${book.id}">
+            <div class="form-group">
+                <label for="name">Book name</label>
+                <input type="text" required class="form-control" id="name" name="name" th:value="${book.name}">
+            </div>
+            <div class="form-group">
+                <label for="yearOfPublishing">Year of Publishing</label>
+                <input type="number" required class="form-control" id="yearOfPublishing" name="yearOfPublishing" th:value="${book.yearOfPublishing}">
+            </div>
+            <div class="form-group">
+                <label for="description">Description</label>
+                <textarea required class="form-control" id="description" name="description" th:text="${book.description}"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="author">Author</label>
+                <input type="text" required class="form-control" id="author" name="author" th:value="${book.author}">
+            </div>
+            <div class="form-group">
+                <label for="isbn">ISBN</label>
+                <input type="text" required class="form-control" id="isbn" name="isbn" th:value="${book.isbn}">
+            </div>
+            <div class="form-group">
+                <label for="categories">Categories</label>
+                <input type="text" required class="form-control" id="categories" name="categories" th:value="${#strings.join(book.categories, ', ')}">
+            </div>
+            <div class="form-group">
+                <label for="bookType">Book Type</label>
+                <select class="form-control" id="bookType" name="bookType" required>
+                    <option value="PaperBook" th:selected="${book.getClass().getSimpleName() == 'PaperBook'}">Paper Book</option>
+                    <option value="DiskBook" th:selected="${book.getClass().getSimpleName() == 'DiskBook'}">Disk Book</option>
+                    <option value="PaperBookWithDisk" th:selected="${book.getClass().getSimpleName() == 'PaperBookWithDisk'}">Paper Book with Disk</option>
+                </select>
+            </div>
+            <div class="form-group" id="pagesGroup" th:if="${book.getClass().getSimpleName() == 'PaperBook' or book.getClass().getSimpleName() == 'PaperBookWithDisk'}">
+                <label for="numberOfPages">Number of Pages</label>
+                <input type="number" class="form-control" id="numberOfPages" name="numberOfPages" th:value="${book.numberOfPages}">
+            </div>
+            <div class="form-group" id="durationGroup" th:if="${book.getClass().getSimpleName() == 'DiskBook' or book.getClass().getSimpleName() == 'PaperBookWithDisk'}">
+                <label for="durationInHours">Duration in Hours</label>
+                <input type="number" step="0.1" class="form-control" id="durationInHours" name="durationInHours" th:value="${book.durationInHours}">
+            </div>
+            <div class="form-group" id="diskFormatGroup" th:if="${book.getClass().getSimpleName() == 'DiskBook' or book.getClass().getSimpleName() == 'PaperBookWithDisk'}">
+                <label for="diskFormat">Disk Format</label>
+                <input type="text" class="form-control" id="diskFormat" name="diskFormat" th:value="${book.diskFormat}">
+            </div>
+            <div class="form-group">
+                <label for="contactPhone">Contact number</label>
+                <input type="text" required class="form-control" id="contactPhone" name="contactPhone" th:value="${book.contactInfo.phone}">
+            </div>
+            <div class="form-group">
+                <label for="contactEmail">Contact email</label>
+                <input type="email" required class="form-control" id="contactEmail" name="contactEmail" th:value="${book.contactInfo.email}">
+            </div>
+            <div class="form-group">
+                <label for="socialMediaLink">Social Media Link</label>
+                <input type="text" required class="form-control" id="socialMediaLink" name="socialMediaLink" th:value="${book.contactInfo.socialMediaLink}">
+            </div>
+            <div class="form-group">
+                <label for="numberOfCopies">Number of copies</label>
+                <input type="text" required class="form-control" id="numberOfCopies" name="numberOfCopies" th:value="${book.offer.numberOfCopies}">
+            </div>
+            <div class="form-group">
+                <label for="price">Price for one copy</label>
+                <input type="text" required class="form-control" id="price" name="price" th:value="${book.offer.price}">
+            </div>
+            <button type="submit" style="width: 100%" class="btn btn-dark">Update Book</button>
+        </form>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"
+        integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
+        crossorigin="anonymous"></script>
+<script>
+    $(document).ready(function() {
+        $('#bookType').change(function() {
+            var bookType = $(this).val();
+            if (bookType === 'PaperBook') {
+                $('#pagesGroup').show();
+                $('#durationGroup').hide();
+                $('#diskFormatGroup').hide();
+            } else if (bookType === 'DiskBook') {
+                $('#pagesGroup').hide();
+                $('#durationGroup').show();
+                $('#diskFormatGroup').show();
+            } else if (bookType === 'PaperBookWithDisk') {
+                $('#pagesGroup').show();
+                $('#durationGroup').show();
+                $('#diskFormatGroup').show();
+            }
+        }).change();
+    });
+</script>
+</body>
+</html>
